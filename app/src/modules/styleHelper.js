@@ -42,8 +42,8 @@ helper.json = function(err,result) {
 
 helper.handler = function(req,res,next){
   _res = res;
-  _res.status = 200;
   if (!_.isUndefined(res.result)){
+    _res.status(200);
     return helper.json(null,res.result);
   }else{
     return next();
@@ -53,7 +53,7 @@ helper.handler = function(req,res,next){
 helper.errorHandler = function(err,req,res,next){
   logger.error(err);
   _res = res;
-  _res.status = 400;
+  _res.status(404);
   return helper.json(err,null);
 };
 
