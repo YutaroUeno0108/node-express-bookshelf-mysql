@@ -5,6 +5,8 @@ var model = module.exports = {};
 var helper = require('../modules/helper');
 var db = helper.requireModule('database');
 
+model.COLS = ['sample_id','sample_name'];
+
 var Sample = db.Model.extend({
   tableName: 'sample_t',
   idAttribute: 'sample_id',
@@ -17,6 +19,16 @@ var Sample = db.Model.extend({
   },
   findAll:function(){
     return this.fetchAll();
+  },
+  find:function(values,t){
+    return this.fetch();
+  },
+  update:function(values,t){
+    return this.save(values,{
+      method:'update',
+      patch:true,
+      transacting:t
+    });
   },
   forge:function(attributes,options){
     return this.forge(attributes,options);

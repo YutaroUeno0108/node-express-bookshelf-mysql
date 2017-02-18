@@ -32,4 +32,26 @@ router.post('/',function(req,res,next){
   });
 });
 
+router.param('id',function(req,res,next){
+  var sampleController = helper.requireController('SampleController');
+  return sampleController.find(req.params.id).then(function(result){
+    req.sample  = result;
+    return next();
+  })
+  .catch(function(err){
+    return next(err);
+  });
+});
+
+router.put('/:id',function(req,res,next){
+  var sampleController = helper.requireController('SampleController');
+  return sampleController.update(req.sample,req.body).then(function(result){
+    res.result  = result;
+    return next();
+  })
+  .catch(function(err){
+    return next(err);
+  });
+});
+
 module.exports = router;
