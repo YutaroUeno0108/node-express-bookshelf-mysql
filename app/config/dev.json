@@ -1,0 +1,9 @@
+{
+  "env":"dev",
+  "dbconfig":{
+    "host":"localhost",
+    "user":"sampleuser",
+    "password":"Sampleuser@1",
+    "database":"sample"
+  }
+}
