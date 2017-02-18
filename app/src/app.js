@@ -34,12 +34,9 @@ app.use(stylehelper.handler);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  if (_.isUndefined(res.result)){
-    var err = new Error('Not Found');
-    err.status = 404;
-    return next(err);
-  }
-  return next();
+  var err = new Error('Not Found');
+  err.status = 404;
+  return next(err);
 });
 
 app.use(stylehelper.errorHandler);
