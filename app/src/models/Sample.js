@@ -7,6 +7,14 @@ var db = helper.requireModule('database');
 
 var Sample = db.Model.extend({
   tableName: 'sample_t',
+  idAttribute: 'sample_id',
+  create:function(values,t){
+    return this.set(values)
+    .save(null,{
+      method:'insert',
+      transacting:t
+    });
+  },
   findAll:function(){
     return this.fetchAll();
   },

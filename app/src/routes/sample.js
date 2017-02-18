@@ -21,4 +21,15 @@ router.get('/',function(req,res,next){
 
 });
 
+router.post('/',function(req,res,next){
+  var sampleController = helper.requireController('SampleController');
+  return sampleController.add(req,res).then(function(result){
+    res.result  = result;
+    return next();
+  })
+  .catch(function(err){
+    return next(err);
+  });
+});
+
 module.exports = router;
