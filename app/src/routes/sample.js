@@ -13,6 +13,14 @@ router.get('/',function(req,res,next){
   return sampleController.findList(req,res)
   .then(function(result){
     res.result  = result;
+    var sess = req.session
+      if (sess.views) {
+        sess.views++;
+        res.views = sess.views;
+      } else {
+        sess.views = 1;
+        res.views = sess.views;
+      }
     return next();
   })
   .catch(function(err){

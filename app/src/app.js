@@ -10,7 +10,10 @@ var _ = require('lodash');
 var helper = require('./modules/helper');
 var provider = helper.requireModule('provider');
 var stylehelper = helper.requireModule('stylehelper');
+var session = require('express-session')
+var ClusterStore = require('strong-cluster-connect-store')(session);
 var app = express();
+
 
 global.__app_root = path.join(__dirname,'..');
 
@@ -26,6 +29,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  store: new ClusterStore(),
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}));
 app.use(express.static(path.join(__app_root, 'public')));
 
 provider(app);
